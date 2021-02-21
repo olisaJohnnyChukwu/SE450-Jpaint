@@ -1,3 +1,4 @@
+
 package ClickHandler;
 
 import java.awt.Graphics2D;
@@ -13,6 +14,8 @@ import Command.SelectShapeCommand;
 import Command.SelectedShapeList;
 import Command.ShapeList;
 import Shape.Ishape;
+import Shape.rectangleOutline;
+import Shape.shapeOutliner;
 //import Shape.ShapeFactory;
 import Shape.shapeProperties;
 import model.MouseMode;
@@ -43,11 +46,7 @@ public class clickHandler extends MouseAdapter{
 		this.selectedShape=selectedShape;
 	}
 
-	/*public clickHandler(PaintCanvasBase canvas) {
-		super();
-		this.canvas = canvas;
-		
-	}*/
+	
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -87,10 +86,15 @@ public class clickHandler extends MouseAdapter{
 			e1.printStackTrace();
 		}}else if(applicationState.getActiveMouseMode().equals(MouseMode.SELECT)) {
 			 Icommand C= new SelectShapeCommand(selectedShape, list, point);
+			 
 			
 			 selectedShape.clear();
 			 try {
 				C.run();
+				for(Ishape a:selectedShape.getSelectedshapelist()) {
+					 Ishape b=new shapeOutliner(a);
+				        b.Draw(canvas);
+				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -122,6 +126,10 @@ public class clickHandler extends MouseAdapter{
 		
 		
 	}
+
+	
+
+
 
 	
 
