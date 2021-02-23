@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import view.interfaces.PaintCanvasBase;
 
-public class SelectShapeCommand implements Icommand, IUndoable {
+public class SelectShapeCommand implements Icommand{
 	
 	SelectedShapeList selectedShape;
 	ShapeList list;
@@ -26,36 +26,10 @@ public class SelectShapeCommand implements Icommand, IUndoable {
 		// TODO Auto-generated method stub
 		selectedShape.clear();
 		selectedShape.inRange(point, list);
-		CommandHistory.add(this);
+		
 		
 	}
-	@Override
-	public void undo() {
-		/*selectedShape.clear();
-		 * 
-		 */
-		//System.out.println(selectedShape.selectedshapelist);
-		CommandHistory.undo();
-		// TODO Auto-generated method stub*/
-
-	}
-
-	@Override
-	public void redo() {
-		/*selectedShape.clear();
-		selectedShape.inRange(point, list);*/
-		CommandHistory.redo();
-		/*try {
-			run();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		System.out.println(selectedShape.selectedshapelist);
-		//CommandHistory.redo();
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	
 
