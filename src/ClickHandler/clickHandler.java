@@ -85,6 +85,7 @@ public class clickHandler extends MouseAdapter{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}}else if(applicationState.getActiveMouseMode().equals(MouseMode.SELECT)) {
+			list.redraw();
 			 Icommand C= new SelectShapeCommand(selectedShape, list, point);
 			 
 			
