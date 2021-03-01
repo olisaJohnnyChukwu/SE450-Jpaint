@@ -14,6 +14,7 @@ public class MoveCommand implements Icommand, IUndoable {
 	
 	SelectedShapeList selectedShape;
 	ShapeList list;
+	ArrayList<Ishape> clipboard;
 	int dx;
 	int dy;
 	
@@ -25,6 +26,7 @@ public class MoveCommand implements Icommand, IUndoable {
 		this.list = list;
 		this.dx = dx;
 		this.dy = dy;
+		clipboard=new ArrayList<>();
 	}
 
 	
@@ -34,7 +36,8 @@ public class MoveCommand implements Icommand, IUndoable {
 		// TODO Auto-generated method stub
 
 		
-		for(Ishape shape:list.getList()) {
+		
+		for(Ishape shape:clipboard) {
 			if(selectedShape.getSelectedshapelist().contains(shape)) {
 				move move=new move(dx,dy,shape);
 				ImoveStrategy moveStrategy=new negativeDisplacement();
@@ -43,7 +46,7 @@ public class MoveCommand implements Icommand, IUndoable {
 			
 		}
 		list.redraw();
-
+		
 	}
 
 	@Override
@@ -51,8 +54,7 @@ public class MoveCommand implements Icommand, IUndoable {
 		// TODO Auto-generated method stub
 		
 
-		
-		for(Ishape shape:list.getList()) {
+		for(Ishape shape:clipboard) {
 			if(selectedShape.getSelectedshapelist().contains(shape)) {
 				move move=new move(dx,dy,shape);
 				ImoveStrategy moveStrategy=new positiveDisplacement();
@@ -72,6 +74,7 @@ public class MoveCommand implements Icommand, IUndoable {
 				move move=new move(dx,dy,shape);
 				ImoveStrategy moveStrategy=new positiveDisplacement();
 				move.displace(moveStrategy);
+				clipboard.add(shape);
 			}
 			
 		}
