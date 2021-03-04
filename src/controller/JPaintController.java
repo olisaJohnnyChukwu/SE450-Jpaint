@@ -9,6 +9,7 @@ import Command.ShapeList;
 import Command.UndoCommand;
 import Command.copyShapeCommand;
 import Command.deleteShapeCommand;
+import Command.groupCommand;
 import Command.pasteCommand;
 import model.interfaces.IApplicationState;
 import view.EventName;
@@ -82,5 +83,15 @@ public class JPaintController implements IJPaintController {
 				e.printStackTrace();
 			}
 		});
+        uiModule.addEvent(EventName.GROUP,()->{
+			try {
+				//new deleteShapeCommand(shapelist,selectedShape).run();
+				new groupCommand(selectedShape, shapelist).run();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+        
     }
 }
