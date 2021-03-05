@@ -24,7 +24,8 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 		// TODO Auto-generated method stub
 		
 		for(Ishape shape:clipboard) {
-			shapelist.AddShape(shape);
+			//shapelist.AddShape(shape);
+			shape.addtolist(shape, shapelist);
 			
 			
 		}
@@ -37,7 +38,8 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 		// TODO Auto-generated method stub
 		for(Ishape shape:selectedShape.getSelectedshapelist()) {
 			
-			shapelist.RemoveShape(shape);
+			//shapelist.RemoveShape(shape);
+			shape.delete(shape, shapelist);
 		}
 	
 	}
@@ -47,7 +49,8 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 		// TODO Auto-generated method stub
 		for(Ishape shape:selectedShape.getSelectedshapelist()) {
 			clipboard.add(shape);
-			shapelist.RemoveShape(shape);
+			//shapelist.RemoveShape(shape);
+			shape.delete(shape, shapelist);
 		}
 		
 		CommandHistory.add(this);
