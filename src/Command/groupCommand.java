@@ -11,8 +11,9 @@ public class groupCommand implements IUndoable, Icommand {
 	SelectedShapeList selectedShape;
 	ShapeList shapelist;
 	ArrayList<Ishape> clipboard;
-	shapeGroup groupIshape;
+	Ishape groupIshape;
 	PaintCanvasBase canvas;
+	
 	
 	
 
@@ -30,8 +31,12 @@ public class groupCommand implements IUndoable, Icommand {
 	@Override
 	public void run() throws IOException {
 		// TODO Auto-generated method stub
+		
+		
+		System.out.println("groupIshape2.getId()");
 		for(Ishape a:selectedShape.selectedshapelist) {
 			clipboard.add(a);
+			
 			shapelist.RemoveShape(a);
 		}
 		groupIshape=new shapeGroup(clipboard);
@@ -46,27 +51,21 @@ public class groupCommand implements IUndoable, Icommand {
 	public void undo() {
 		// TODO Auto-generated method stub
 		
-		for(Ishape shape:clipboard) {
-			groupIshape.removeShape(shape);
-			shapelist.AddShape(shape);
-		}
 		shapelist.RemoveShape(groupIshape);
+		shapeGroup group=(shapeGroup)groupIshape;
+		for(Ishape a:group.getGroup() ){
+			shapelist.AddShape(a);
+		}
 	
 
 	}
 
 	@Override
 	public void redo() {
-		
-		// TODO Auto-generated method stub
-		groupIshape.setGroup(clipboard);
-		
 		for(Ishape shape:clipboard) {
 			shapelist.RemoveShape(shape);
-			
-			
 		}
-		
+		shapelist.AddShape(groupIshape);
 
 	}
 
