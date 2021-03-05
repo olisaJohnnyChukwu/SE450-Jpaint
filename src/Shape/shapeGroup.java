@@ -2,6 +2,9 @@ package Shape;
 import java.util.*;
 
 import Command.SelectedShapeList;
+import Command.ShapeList;
+import Stategy.*;
+
 import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
@@ -10,6 +13,7 @@ public class shapeGroup implements Ishape {
 	private  UUID uuid=UUID.randomUUID();
 	private  String Id=uuid.toString();
 	shapeProperties properties;
+	
 	
 	
 	
@@ -40,6 +44,7 @@ public class shapeGroup implements Ishape {
 	@Override
 	public void Draw(PaintCanvasBase canvas) {
 		// TODO Auto-generated method stub
+		
 		for(Ishape shape:group) {
 			shape.Draw(canvas);
 		}
@@ -77,12 +82,13 @@ public class shapeGroup implements Ishape {
 	}
 	
 	public void removeShape(Ishape shape) {
-		String shapeId=shape.getId();
+		/*String shapeId=shape.getId();
 		for(Ishape s: group) {
 			if(s.getId()==shapeId) {
 				group.remove(shape);
 			}
-		}
+		}*/
+		group.remove(shape);
 	}
 	public void boundary() {
 		int boundary[]=new int[4];
@@ -145,6 +151,52 @@ public class shapeGroup implements Ishape {
 		    }
 		  }
 		  return minValue;
+		}
+
+		public void negativedisplacement(int dx, int dy) {
+			// TODO Auto-generated method stub
+			for(Ishape shape:group) {
+				move move=new move(dx,dy,shape);
+				ImoveStrategy moveStrategy=new negativeDisplacement();
+				move.displace(moveStrategy);
+				
+			}
+			
+		}
+
+		public void positivedisplacement(int dx, int dy) {
+			// TODO Auto-generated method stub
+			for(Ishape shape:group) {
+				move move=new move(dx,dy,shape);
+				ImoveStrategy moveStrategy=new positiveDisplacement();
+				System.out.println("+++++");
+				move.displace(moveStrategy);
+			}
+		}
+
+		@Override
+		public Ishape copy(Ishape shape, int x) {
+			// TODO Auto-generated method stub
+			ArrayList<Ishape> list=new ArrayList<Ishape>();
+			for(Ishape sh:group) {
+				Ishape s=sh.copy(sh, x);
+				list.add(s);
+			}
+			return new shapeGroup(list);
+		}
+
+		@Override
+		public void delete(Ishape shape, ShapeList shapelist) {
+			// TODO Auto-generated method stub
+			shapelist.RemoveShape(shape);
+			
+			
+		}
+
+		@Override
+		public void addtolist(Ishape shape, ShapeList shapelist) {
+			// TODO Auto-generated method stub
+			shapelist.addGroup(shape);
 		}
 
 }
