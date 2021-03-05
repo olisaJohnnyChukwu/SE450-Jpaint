@@ -161,6 +161,7 @@ public class shapeGroup implements Ishape {
 				move.displace(moveStrategy);
 				
 			}
+			boundary();
 			
 		}
 
@@ -172,6 +173,7 @@ public class shapeGroup implements Ishape {
 				System.out.println("+++++");
 				move.displace(moveStrategy);
 			}
+			boundary();
 		}
 
 		@Override
