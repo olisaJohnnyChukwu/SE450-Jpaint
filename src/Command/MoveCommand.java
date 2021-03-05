@@ -39,9 +39,7 @@ public class MoveCommand implements Icommand, IUndoable {
 		
 		for(Ishape shape:clipboard) {
 			if(selectedShape.getSelectedshapelist().contains(shape)) {
-				move move=new move(dx,dy,shape);
-				ImoveStrategy moveStrategy=new negativeDisplacement();
-				move.displace(moveStrategy);
+				shape.negativedisplacement(dx, dy);
 			}
 			
 		}
@@ -56,9 +54,7 @@ public class MoveCommand implements Icommand, IUndoable {
 
 		for(Ishape shape:clipboard) {
 			if(selectedShape.getSelectedshapelist().contains(shape)) {
-				move move=new move(dx,dy,shape);
-				ImoveStrategy moveStrategy=new positiveDisplacement();
-				move.displace(moveStrategy);
+				shape.positivedisplacement(dx, dy);
 			}
 			
 		}
@@ -71,9 +67,7 @@ public class MoveCommand implements Icommand, IUndoable {
 	public void run() throws IOException {
 		for(Ishape shape:list.getList()) {
 			if(selectedShape.getSelectedshapelist().contains(shape)) {
-				move move=new move(dx,dy,shape);
-				ImoveStrategy moveStrategy=new positiveDisplacement();
-				move.displace(moveStrategy);
+				shape.positivedisplacement(dx, dy);
 				clipboard.add(shape);
 			}
 			
