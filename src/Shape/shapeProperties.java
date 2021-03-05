@@ -14,9 +14,16 @@ public class shapeProperties {
 	private int height;
 	ShapeShadingType shade;
 	ShapeColor shapecolor;
+	
 	ShapeType shapeType;
 	
-	
+	public shapeProperties(int x, int y, int width, int height) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 	
 	public shapeProperties(int x,int y,int width,int height,ShapeShadingType shade,ShapeColor shapecolor,ShapeType shapeType) {
 		this.shade=shade;
@@ -42,6 +49,7 @@ public class shapeProperties {
 		
 		
 	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
