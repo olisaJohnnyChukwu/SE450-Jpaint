@@ -6,6 +6,7 @@ import java.util.*;
 import Shape.CreateShapeFactory;
 import Shape.Ishape;
 import Shape.IshapeFactory;
+import Shape.shapeGroup;
 import Shape.shapeProperties;
 import model.ShapeColor;
 import model.ShapeShadingType;
@@ -21,6 +22,8 @@ public class ShapeList {
 	
 	private PaintCanvasBase canvas;
 	
+	
+
 	
 
 	public ShapeList(PaintCanvasBase canvas) {
@@ -48,6 +51,7 @@ public class ShapeList {
         graphics2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         
         list.add(shape);
+       
         
 		for(Ishape s: list) {
 			s.Draw(canvas);
@@ -87,46 +91,8 @@ public class ShapeList {
 			s.Draw(canvas);
 		}
 	}
-	public void removeAtback() {
-		int i=list.size()-1;
-		list.remove(i);
-		Graphics2D graphics2d = canvas.getGraphics2D();
-		graphics2d.setColor(Color.WHITE);
-        graphics2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		
-		
-		for(Ishape s: list) {
-			s.Draw(canvas);
-		}
-		
-	}
-	public Ishape makeShape(Ishape shape,IApplicationState applicationState,int a) {
-		
-		
-		
-		shapeProperties prop2=shape.getProperties();
-		int x=prop2.getX()+a;
-		int y=prop2.getY()-a;
-		int w=prop2.getWidth();
-		int h=prop2.getHeight();
-		
-		ShapeShadingType shade=prop2.getShade();
-		ShapeType shapetype=prop2.getType();
-		ShapeColor shapecolor=prop2.getColor();
-		
-		shapeProperties prop=new shapeProperties(x, y, w, h, shade, shapecolor,shapetype);
-		IshapeFactory factory=new CreateShapeFactory();
-		//Ishape copy=factory.CreateShape(prop, applicationState);
-		Ishape copy=factory.CreateShape2(prop,shapetype);
-		//copy.Draw(canvas);
-		list.add(copy);
-		System.out.println(shape.getId());
-		System.out.println(copy.getId());
-		
-
-		return copy;
-		
-	}
+	
+	
 	public int size() {
 		return list.size();
 	}
@@ -143,10 +109,17 @@ public class ShapeList {
 	}
 
 
-	/*public void setList(ArrayList<Ishape> list) {
-		this.list = list;
-	}*/
-
+	public void addGroup(Ishape shape) {
+		Graphics2D graphics2d = canvas.getGraphics2D();
+		graphics2d.setColor(Color.WHITE);
+        graphics2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		list.add(shape);
+		shapeGroup sh=(shapeGroup)shape;
+		
+		for(Ishape a:sh.getGroup())
+			a.Draw(canvas);
+		
+	}
 	
 	
 	
