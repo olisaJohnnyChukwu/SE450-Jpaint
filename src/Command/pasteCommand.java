@@ -69,17 +69,8 @@ public class pasteCommand implements Icommand, IUndoable {
 	public void run() throws IOException {
 		
 		for(Ishape shape:copyList.getCopyList()) {
-			shapeProperties prop=shape.getProperties();
-			int a=prop.getX()+x;
-			int b=prop.getY()-x;
-			int w=prop.getWidth();
-			int h=prop.getHeight();
-			ShapeShadingType shade=prop.getShade();
-			ShapeType shapetype=prop.getType();
-			ShapeColor shapecolor=prop.getColor();
-			shapeProperties prop2=new shapeProperties(a, b, w, h, shade, shapecolor, shapetype);
-			IshapeFactory factory=new CreateShapeFactory();
-			Ishape copy=factory.CreateShape2(prop2,shapetype);
+			
+			Ishape copy=shape.copy(shape,x);
 			System.out.println(copy.equals(shape));
 			clipboard.add(copy);
 			shapelist.AddShape(copy);
@@ -90,3 +81,4 @@ public class pasteCommand implements Icommand, IUndoable {
 	}
 
 }
+
