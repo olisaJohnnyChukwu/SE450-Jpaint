@@ -4,5 +4,6 @@ public enum ShapeType {
     ELLIPSE,
     RECTANGLE,
     TRIANGLE,
-    GROUP
+    
 }
+

@@ -1,6 +1,7 @@
 package Shape;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ import model.ShapeType;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
-public class Triangle implements Ishape {
+public class Triangle extends shape {
 	private shapeProperties properties;
 	
 	private setColorMap map= new setColorMap();
@@ -25,7 +26,7 @@ public class Triangle implements Ishape {
 	private int[] yarray=new int[3];
 	
 	public Triangle(shapeProperties properties) {
-		super();
+		super(properties);
 		this.properties = properties;
 		this.Id=uuid.toString();
 		xarray[0]=properties.getX();
@@ -39,7 +40,6 @@ public class Triangle implements Ishape {
 		
 	}
 	
-
 
 	@Override
 	public void Draw(PaintCanvasBase canvas) {
@@ -61,23 +61,7 @@ public class Triangle implements Ishape {
 	}
 
 
-	@Override
-	public ShapeType ShapeName() {
-		// TODO Auto-generated method stub
-		return ShapeType.TRIANGLE;
-	}
-
-
-	@Override
-	public shapeProperties getProperties() {
-		// TODO Auto-generated method stub
-		return properties;
-	}
 	
-	public String getId() {
-		// TODO Auto-generated method stub
-		return Id;
-	}
 
 
 	@Override
@@ -93,70 +77,14 @@ public class Triangle implements Ishape {
 		yarray[2]=properties.getY()+properties.getHeight();
 		
 	}
-	@Override
-	public boolean equals(Object o) {
-		// TODO Auto-generated method stub
-		Ishape that=(Ishape)o;
-		
-		return  getId().equals(that.getId());
-	}
-
-
-
-	public void positivedisplacement(int dx,int dy){
-		// TODO Auto-generated method stub
-		move move=new move(dx,dy,this);
-		ImoveStrategy moveStrategy=new positiveDisplacement();
-		move.displace(moveStrategy);
-		
-	}
-
 	
 	@Override
-	public void negativedisplacement(int dx,int dy) {
+	public ShapeType ShapeName() {
 		// TODO Auto-generated method stub
-		move move=new move(dx,dy,this);
-		ImoveStrategy moveStrategy=new negativeDisplacement();
-		move.displace(moveStrategy);
-		
+		return ShapeType.TRIANGLE;
 	}
-
-
-
-	@Override
-	public Ishape copy(Ishape shape,int x) {
-		// TODO Auto-generated method stub
-		shapeProperties prop=shape.getProperties();
-		int a=prop.getX()+x;
-		int b=prop.getY()-x;
-		int w=prop.getWidth();
-		int h=prop.getHeight();
-		ShapeShadingType shade=prop.getShade();
-		ShapeType shapetype=prop.getType();
-		ShapeColor shapecolor=prop.getColor();
-		shapeProperties prop2=new shapeProperties(a, b, w, h, shade, shapecolor, shapetype);
-		IshapeFactory factory=new CreateShapeFactory();
-		Ishape copy=factory.CreateShape2(prop2,shapetype);
-		return copy;
-	}
-	
-	
-	@Override
-	public void delete(Ishape shape, ShapeList shapelist) {
-		// TODO Auto-generated method stub
-		shapelist.RemoveShape(shape);
-		
-	}
-
-	@Override
-	public void addtolist(Ishape shape, ShapeList shapelist) {
-		// TODO Auto-generated method stub
-		shapelist.AddShape(shape);
-		
-	}
-	
-	
 	
 	
 
 }
+
