@@ -1,7 +1,10 @@
+
 package Shape;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
+import Command.ShapeList;
 import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
@@ -16,11 +19,7 @@ public class shapeOutliner extends shapeOutline{
 		
 		shapeProperties prop=getOutline();
 		Graphics2D graphics2d = canvas.getGraphics2D();
-		if(outline.ShapeName().equals(ShapeType.GROUP)) {
-			graphics2d.drawRect(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
-			return;
-			
-		}
+		
 		
 		if(outline.ShapeName().equals(ShapeType.RECTANGLE)) {
 		graphics2d.drawRect(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
@@ -53,5 +52,39 @@ public class shapeOutliner extends shapeOutline{
 		return s;
 		
 	}
+	@Override
+	public void negativedisplacement(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void positivedisplacement(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Ishape copy(Ishape shape, int x) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void delete(Ishape shape, ShapeList shapelist) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void addtolist(Ishape shape, ShapeList shapelist) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void ungroup(Ishape shape, ShapeList shapelist, ArrayList<Ishape> clipboard) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 
 }
+
