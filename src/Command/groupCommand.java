@@ -36,11 +36,12 @@ public class groupCommand implements IUndoable, Icommand {
 		
 		for(Ishape a:selectedShape.getSelectedshapelist()) {
 			clipboard.add(a);
-			shapelist.RemoveShape(a);
+			shapelist.getList().remove(a);
 		}
 		
 		groupIshape=new shapeGroup(clipboard);
 		shapelist.addGroup(groupIshape);
+		shapelist.redraw();
 		CommandHistory.add(this);
 		
 	
@@ -71,5 +72,7 @@ public class groupCommand implements IUndoable, Icommand {
 		shapelist.addGroup(groupIshape);
 
 	}
+
+}
 
 }
