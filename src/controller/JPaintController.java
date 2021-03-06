@@ -67,7 +67,7 @@ public class JPaintController implements IJPaintController {
 		});
         uiModule.addEvent(EventName.PASTE,()->{
 			try {
-				new pasteCommand(copyList.size(), copyList,shapelist,applicationState,100).run();
+				new pasteCommand(copyList.size(), copyList,shapelist,applicationState,150).run();
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
