@@ -15,9 +15,6 @@ public class shapeGroup implements Ishape {
 	shapeProperties properties;
 	
 	
-	
-	
-
 	public shapeGroup() {
 		super();
 		//this.group = group;
@@ -50,11 +47,10 @@ public class shapeGroup implements Ishape {
 		}
 
 	}
-
 	@Override
 	public ShapeType ShapeName() {
 		// TODO Auto-generated method stub
-		return ShapeType.GROUP;
+		return ShapeType.RECTANGLE;
 	}
 
 	@Override
@@ -156,9 +152,7 @@ public class shapeGroup implements Ishape {
 		public void negativedisplacement(int dx, int dy) {
 			// TODO Auto-generated method stub
 			for(Ishape shape:group) {
-				move move=new move(dx,dy,shape);
-				ImoveStrategy moveStrategy=new negativeDisplacement();
-				move.displace(moveStrategy);
+				shape.negativedisplacement(dx, dy);
 				
 			}
 			boundary();
@@ -168,10 +162,8 @@ public class shapeGroup implements Ishape {
 		public void positivedisplacement(int dx, int dy) {
 			// TODO Auto-generated method stub
 			for(Ishape shape:group) {
-				move move=new move(dx,dy,shape);
-				ImoveStrategy moveStrategy=new positiveDisplacement();
-				System.out.println("+++++");
-				move.displace(moveStrategy);
+				
+				shape.positivedisplacement(dx, dy);
 			}
 			boundary();
 		}
@@ -201,4 +193,17 @@ public class shapeGroup implements Ishape {
 			shapelist.addGroup(shape);
 		}
 
+		@Override
+		public void ungroup(Ishape shape, ShapeList shapelist,ArrayList<Ishape> clipboard) {
+			// TODO Auto-generated method stub
+			for(Ishape sh:group) {
+				shapelist.AddShape(sh);
+			}
+			
+		if(!clipboard.contains(shape)) {
+			clipboard.add(shape);}
+			shapelist.RemoveShape(shape);
+		}
+
 }
+
