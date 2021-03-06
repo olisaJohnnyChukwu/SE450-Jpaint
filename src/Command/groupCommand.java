@@ -33,14 +33,14 @@ public class groupCommand implements IUndoable, Icommand {
 		// TODO Auto-generated method stub
 		
 		
-		System.out.println("groupIshape2.getId()");
-		for(Ishape a:selectedShape.selectedshapelist) {
+		
+		for(Ishape a:selectedShape.getSelectedshapelist()) {
 			clipboard.add(a);
-			
 			shapelist.RemoveShape(a);
 		}
+		
 		groupIshape=new shapeGroup(clipboard);
-		shapelist.AddShape(groupIshape);
+		shapelist.addGroup(groupIshape);
 		CommandHistory.add(this);
 		
 	
@@ -51,23 +51,25 @@ public class groupCommand implements IUndoable, Icommand {
 	public void undo() {
 		// TODO Auto-generated method stub
 		
-		shapelist.RemoveShape(groupIshape);
-		shapeGroup group=(shapeGroup)groupIshape;
-		for(Ishape a:group.getGroup() ){
-			shapelist.AddShape(a);
+		shapeGroup gr=(shapeGroup)groupIshape;
+		for(Ishape sh:gr.getGroup()) {
+			sh.addtolist(sh, shapelist);
 		}
+		shapelist.RemoveShape(gr);
+		
 	
 
 	}
 
 	@Override
 	public void redo() {
-		for(Ishape shape:clipboard) {
-			shapelist.RemoveShape(shape);
+		
+		for(Ishape sh:clipboard) {
+			shapelist.RemoveShape(sh);
 		}
-		shapelist.AddShape(groupIshape);
+		
+		shapelist.addGroup(groupIshape);
 
 	}
 
 }
-
