@@ -1,4 +1,3 @@
-
 package ClickHandler;
 
 import java.awt.Graphics2D;
@@ -13,8 +12,9 @@ import Command.MoveCommand;
 import Command.SelectShapeCommand;
 import Command.SelectedShapeList;
 import Command.ShapeList;
+import Command.repository;
 import Shape.Ishape;
-import Shape.rectangleOutline;
+
 import Shape.shapeOutliner;
 //import Shape.ShapeFactory;
 import Shape.shapeProperties;
@@ -25,6 +25,8 @@ import model.ShapeType;
 import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 
+
+
 public class clickHandler extends MouseAdapter{
 	
 	PaintCanvasBase canvas;
@@ -33,20 +35,39 @@ public class clickHandler extends MouseAdapter{
 	SelectedShapeList selectedShape;
 	CopyShapeList copyList;
 	IApplicationState applicationState;
-	
-	
+	repository shaperepository;
+	repository selectshaperepository;
 	int[] move=new int[4];
+	
 
-	public clickHandler(PaintCanvasBase canvas, ShapeList list,IApplicationState applicationState,SelectedShapeList selectedShape) {
+	public clickHandler(PaintCanvasBase canvas, ShapeList list,IApplicationState applicationState,SelectedShapeList selectedShape,repository shaperepository, repository selectshaperepository) {
 		super();
 		this.canvas = canvas;
 		
 		this.list = list;
 		this.applicationState=applicationState;
 		this.selectedShape=selectedShape;
+		this.shaperepository=shaperepository;
+		this.selectshaperepository = selectshaperepository;
 	}
 
 	
+
+	public clickHandler(PaintCanvasBase canvas, ShapeList list, SelectedShapeList selectedShape, CopyShapeList copyList,
+			IApplicationState applicationState, repository shaperepository, repository selectshaperepository)
+			 {
+		super();
+		this.canvas = canvas;
+		this.list = list;
+		this.selectedShape = selectedShape;
+		this.copyList = copyList;
+		this.applicationState = applicationState;
+		this.shaperepository = shaperepository;
+		this.selectshaperepository = selectshaperepository;
+		
+	}
+
+
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -68,31 +89,26 @@ public class clickHandler extends MouseAdapter{
 		move[3]=e.getY();
 		
 		
-		//Graphics2D graphics2d = canvas.getGraphics2D();
-		//graphics2d.fillRect(point.getX1(), point.getY1(), point.getdiffx(), point.getdiffy());
-		//ShapeList list=new ShapeList(canvas);
 		if(applicationState.getActiveMouseMode().equals( MouseMode.DRAW)) {
 		ShapeShadingType shade=applicationState.getActiveShapeShadingType();
 		ShapeColor shapeColor=applicationState.getActivePrimaryColor();
 		ShapeType shapetype=applicationState.getActiveShapeType();
 		shapeProperties properties=new shapeProperties(point,shade,shapeColor,shapetype);
-		//shapeProperties properties=new shapeProperties(point,shade,shapeColor,shapetype);
-		//copyList.clear();
-		Icommand C= new CreateShapeCommand(list,properties,applicationState);
+		Icommand C= new CreateShapeCommand(shaperepository, properties,applicationState);
 		try {
 			C.run();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}}else if(applicationState.getActiveMouseMode().equals(MouseMode.SELECT)) {
-			list.redraw();
-			 Icommand C= new SelectShapeCommand(selectedShape, list, point);
+			shaperepository.redraw();
+			 Icommand C= new SelectShapeCommand(shaperepository,selectshaperepository, point);
 			 
 			
-			 selectedShape.clear();
+			 selectshaperepository.clear();
 			 try {
 				C.run();
-				for(Ishape a:selectedShape.getSelectedshapelist()) {
+				for(Ishape a:selectshaperepository.list()) {
 					 Ishape b=new shapeOutliner(a);
 				        b.Draw(canvas);
 				}
@@ -105,15 +121,7 @@ public class clickHandler extends MouseAdapter{
 				int dx=move[2]-move[0];
 				int dy=move[3]-move[1];
 				
-				/*Icommand C= new SelectShapeCommand(selectedShape, list, point);
-				 selectedShape.clear();
-				 try {
-					C.run();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
-				Icommand C1= new MoveCommand(selectedShape, list, dx, dy);
+				Icommand C1= new MoveCommand(selectedShape, list, dx, dy, shaperepository, selectshaperepository);
 				try {
 					C1.run();
 				} catch (IOException e1) {
@@ -129,8 +137,5 @@ public class clickHandler extends MouseAdapter{
 	}
 
 	
-
-
-
 	
 
