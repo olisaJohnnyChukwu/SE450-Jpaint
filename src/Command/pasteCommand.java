@@ -23,12 +23,15 @@ public class pasteCommand implements Icommand, IUndoable {
 	ShapeList shapelist;
 	List<Ishape> clipboard;
 	IApplicationState applicationState;
+	repository shaperepository;
+	repository coyshaperepository;
+	
 	int x;
 
 	
 	
 	 
-	public pasteCommand(int num, CopyShapeList copyList, ShapeList shapelist,IApplicationState applicationState,int x) {
+	public pasteCommand(int num, CopyShapeList copyList, ShapeList shapelist,IApplicationState applicationState,int x,repository shaperepository,repository coyshaperepository) {
 		super();
 		this.num = num;
 		this.copyList = copyList;
@@ -36,7 +39,8 @@ public class pasteCommand implements Icommand, IUndoable {
 		clipboard=new ArrayList<>();
 		this.applicationState=applicationState;
 		this.x=x;
-		
+		this.shaperepository=shaperepository;
+		this.coyshaperepository=coyshaperepository;
 		
 	}
 
@@ -44,10 +48,13 @@ public class pasteCommand implements Icommand, IUndoable {
 	public void undo() {
 		// TODO Auto-generated method stub
 		for(Ishape s:clipboard) {
-			shapelist.traverse(s);
+			
+			if(shaperepository.contains(s)) {
+				shaperepository.removeshape(s);
+			}
 		}
 		
-		shapelist.redraw();
+		shaperepository.redraw();
 		
 		
 		
@@ -60,7 +67,7 @@ public class pasteCommand implements Icommand, IUndoable {
 		
 		
 		for(Ishape s:clipboard) {
-			shapelist.AddShape(s);
+			shaperepository.addshape(s);
 		}
 		
 	}
@@ -68,17 +75,16 @@ public class pasteCommand implements Icommand, IUndoable {
 	@Override
 	public void run() throws IOException {
 		
-		for(Ishape shape:copyList.getCopyList()) {
+		for(Ishape shape:coyshaperepository.list()) {
 			
 			Ishape copy=shape.copy(shape,x);
 			System.out.println(copy.equals(shape));
 			clipboard.add(copy);
-			shapelist.AddShape(copy);
+			shaperepository.addshape(copy);
 			}
-		System.out.println(shapelist.getList());
+		System.out.println(shaperepository.list());
 		
 		CommandHistory.add(this);
 	}
 
 }
-
