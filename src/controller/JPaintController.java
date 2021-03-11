@@ -11,6 +11,7 @@ import Command.copyShapeCommand;
 import Command.deleteShapeCommand;
 import Command.groupCommand;
 import Command.pasteCommand;
+import Command.repository;
 import Command.ungroupCommand;
 import model.interfaces.IApplicationState;
 import view.EventName;
@@ -22,8 +23,24 @@ public class JPaintController implements IJPaintController {
     SelectedShapeList selectedShape;
     CopyShapeList copyList;
     ShapeList shapelist;
+    repository shaperepository;
+    repository selectshaperepository;
+    repository coyshaperepository;
 
-    public JPaintController(IUiModule uiModule, IApplicationState applicationState,SelectedShapeList selectedShape, CopyShapeList copyList,ShapeList shapelist) {
+    public JPaintController(IUiModule uiModule, IApplicationState applicationState, SelectedShapeList selectedShape,
+			CopyShapeList copyList, ShapeList shapelist, repository shaperepository, repository selectshaperepository,repository coyshaperepository) {
+		super();
+		this.uiModule = uiModule;
+		this.applicationState = applicationState;
+		this.selectedShape = selectedShape;
+		this.copyList = copyList;
+		this.shapelist = shapelist;
+		this.shaperepository = shaperepository;
+		this.selectshaperepository = selectshaperepository;
+		this.coyshaperepository=coyshaperepository;
+	}
+
+	public JPaintController(IUiModule uiModule, IApplicationState applicationState,SelectedShapeList selectedShape, CopyShapeList copyList,ShapeList shapelist) {
         this.uiModule = uiModule;
         this.applicationState = applicationState;
         this.selectedShape=selectedShape;
@@ -60,7 +77,7 @@ public class JPaintController implements IJPaintController {
 		});
         uiModule.addEvent(EventName.COPY,()->{
 			try {
-				new copyShapeCommand(copyList,selectedShape).run();
+				new copyShapeCommand(copyList,selectedShape, selectshaperepository, coyshaperepository).run();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -68,7 +85,7 @@ public class JPaintController implements IJPaintController {
 		});
         uiModule.addEvent(EventName.PASTE,()->{
 			try {
-				new pasteCommand(copyList.size(), copyList,shapelist,applicationState,150).run();
+				new pasteCommand(copyList.size(), copyList,shapelist,applicationState,150, shaperepository, coyshaperepository).run();
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -77,7 +94,7 @@ public class JPaintController implements IJPaintController {
 		});
         uiModule.addEvent(EventName.DELETE,()->{
 			try {
-				new deleteShapeCommand(shapelist,selectedShape).run();
+				new deleteShapeCommand(shapelist,selectedShape, shaperepository, selectshaperepository).run();
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
