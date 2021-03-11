@@ -10,13 +10,17 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 	ShapeList shapelist;
 	SelectedShapeList selectedShape;
 	List<Ishape> clipboard;
+	repository shaperepository;
+	repository selectshaperepository;
 	
 	
-	public deleteShapeCommand(ShapeList shapelist, SelectedShapeList selectedShape) {
+	public deleteShapeCommand(ShapeList shapelist, SelectedShapeList selectedShape,repository shaperepository,repository selectshaperepository) {
 		super();
 		this.shapelist = shapelist;
 		this.selectedShape = selectedShape;
 		clipboard=new ArrayList<>();
+		this.shaperepository=shaperepository;
+		this.selectshaperepository=selectshaperepository;
 	}
 
 	@Override
@@ -25,7 +29,7 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 		
 		for(Ishape shape:clipboard) {
 			//shapelist.AddShape(shape);
-			shape.addtolist(shape, shapelist);
+			shape.addtolist(shape, shaperepository);
 			
 			
 		}
@@ -36,10 +40,10 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 	@Override
 	public void redo() {
 		// TODO Auto-generated method stub
-		for(Ishape shape:selectedShape.getSelectedshapelist()) {
+		for(Ishape shape:selectshaperepository.list()) {
 			
 			//shapelist.RemoveShape(shape);
-			shape.delete(shape, shapelist);
+			shape.delete(shape, shaperepository);
 		}
 	
 	}
@@ -47,13 +51,14 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 	@Override
 	public void run() throws IOException {
 		// TODO Auto-generated method stub
-		for(Ishape shape:selectedShape.getSelectedshapelist()) {
+		for(Ishape shape:selectshaperepository.list()) {
 			clipboard.add(shape);
 			//shapelist.RemoveShape(shape);
-			shape.delete(shape, shapelist);
+			shape.delete(shape, shaperepository);
 		}
 		
 		CommandHistory.add(this);
 	}
 
 }
+
