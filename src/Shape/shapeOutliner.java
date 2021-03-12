@@ -1,10 +1,10 @@
-
 package Shape;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import Command.ShapeList;
+
+import Command.repository;
 import model.ShapeType;
 import view.interfaces.PaintCanvasBase;
 
@@ -67,18 +67,39 @@ public class shapeOutliner extends shapeOutline{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
-	public void delete(Ishape shape, ShapeList shapelist) {
+	public void ungroup(Ishape shape, repository shaperepository, ArrayList<Ishape> clipboard) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void addtolist(Ishape shape, ShapeList shapelist) {
+	public void delete(Ishape shape, repository shaperepository) {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void ungroup(Ishape shape, ShapeList shapelist, ArrayList<Ishape> clipboard) {
+	public void addtolist(Ishape shape, repository shaperepository) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public ShapeType ShapeName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public shapeProperties getProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setProperties(shapeProperties properties) {
 		// TODO Auto-generated method stub
 		
 	}
