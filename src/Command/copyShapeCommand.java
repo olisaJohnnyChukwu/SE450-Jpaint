@@ -2,26 +2,25 @@ package Command;
 
 import java.io.IOException;
 
-import Shape.Ishape;
+import Shape.*;
 
 public class copyShapeCommand implements Icommand, IUndoable {
-	//int numberofCopiedShapes;
-	CopyShapeList copyList;
-	SelectedShapeList selectedShape;
+	repository selectshaperepository;
+	repository coyshaperepository;
 
-	public copyShapeCommand( CopyShapeList copyList, SelectedShapeList selectedShape) {
+	public copyShapeCommand( repository selectshaperepository,repository coyshaperepository) {
 		super();
-		//this.numberofCopiedShapes = numberofCopiedShapes;
-		this.copyList = copyList;
-		this.selectedShape = selectedShape;
+		
+		this.selectshaperepository=selectshaperepository;
+		this.coyshaperepository=coyshaperepository;
 		CommandHistory.add(this);
 	}
 
 	@Override
 	public void undo() {
 		// TODO Auto-generated method stub
-		copyList.clear();
-		System.out.println(copyList.getCopyList());
+		coyshaperepository.clear();
+		
 	}
 
 	@Override
@@ -38,8 +37,8 @@ public class copyShapeCommand implements Icommand, IUndoable {
 	@Override
 	public void run() throws IOException {
 		// TODO Auto-generated method stub
-		copyList.addToList(selectedShape);
-		System.out.println(copyList.getCopyList());
+		coyshaperepository.addlist(selectshaperepository);
+		System.out.println(coyshaperepository.list());
 		
 
 	}
