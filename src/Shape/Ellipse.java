@@ -9,7 +9,7 @@ import model.interfaces.IApplicationState;
 import view.interfaces.PaintCanvasBase;
 import java.util.*;
 
-import Command.ShapeList;
+
 import Stategy.ImoveStrategy;
 import Stategy.move;
 import Stategy.negativeDisplacement;
