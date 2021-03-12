@@ -1,7 +1,11 @@
 package Shape;
 
-import Command.ShapeList;
-import model.ShapeType;
+import java.util.ArrayList;
+
+
+import Command.*;
+import model.*;
+
 import view.interfaces.PaintCanvasBase;
 
 public interface Ishape {
@@ -15,8 +19,8 @@ public interface Ishape {
 	public void negativedisplacement(int dx, int dy);
 	public void positivedisplacement(int dx, int dy);
 	public Ishape copy(Ishape shape, int x);
-	public void delete(Ishape shape,ShapeList shapelist);
-	public void addtolist(Ishape shape,ShapeList shapelist);
-	
+	public void delete(Ishape shape,repository shaperepository);
+	public void addtolist(Ishape shape,repository shaperepository);
+	public void ungroup(Ishape shape,repository shaperepository, ArrayList<Ishape> clipboard);
 
 }
