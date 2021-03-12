@@ -17,28 +17,6 @@ public abstract class shapeOutline implements Ishape {
 
 	}
 
-	@Override
-	public ShapeType ShapeName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public shapeProperties getProperties() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setProperties(shapeProperties properties) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }
