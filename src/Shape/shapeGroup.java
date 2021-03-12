@@ -1,8 +1,8 @@
 package Shape;
 import java.util.*;
 
-import Command.SelectedShapeList;
-import Command.ShapeList;
+
+import Command.repository;
 import Stategy.*;
 
 import model.ShapeType;
@@ -78,12 +78,7 @@ public class shapeGroup implements Ishape {
 	}
 	
 	public void removeShape(Ishape shape) {
-		/*String shapeId=shape.getId();
-		for(Ishape s: group) {
-			if(s.getId()==shapeId) {
-				group.remove(shape);
-			}
-		}*/
+		
 		group.remove(shape);
 	}
 	public void boundary() {
@@ -179,31 +174,36 @@ public class shapeGroup implements Ishape {
 			return new shapeGroup(list);
 		}
 
-		@Override
-		public void delete(Ishape shape, ShapeList shapelist) {
-			// TODO Auto-generated method stub
-			shapelist.RemoveShape(shape);
-			
-			
-		}
+		
 
 		@Override
-		public void addtolist(Ishape shape, ShapeList shapelist) {
-			// TODO Auto-generated method stub
-			shapelist.addGroup(shape);
-		}
-
-		@Override
-		public void ungroup(Ishape shape, ShapeList shapelist,ArrayList<Ishape> clipboard) {
+		public void ungroup(Ishape shape, repository shaperepository,ArrayList<Ishape> clipboard) {
 			// TODO Auto-generated method stub
 			for(Ishape sh:group) {
-				shapelist.AddShape(sh);
+				shaperepository.addshape(sh);
 			}
 			
 		if(!clipboard.contains(shape)) {
 			clipboard.add(shape);}
-			shapelist.RemoveShape(shape);
+		shaperepository.removeshape(shape);
 		}
 
-}
+		@Override
+		public void delete(Ishape shape, repository shaperepository) {
+			// TODO Auto-generated method stub
+			shaperepository.removeshape(shape);
+			
+		}
 
+		@Override
+		public void addtolist(Ishape shape, repository shaperepository) {
+			// TODO Auto-generated method stub
+			shaperepository.addshape(shape);
+			
+		}
+
+		
+
+	
+
+}
