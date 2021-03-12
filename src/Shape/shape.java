@@ -3,7 +3,8 @@ package Shape;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import Command.ShapeList;
+
+import Command.repository;
 import Stategy.ImoveStrategy;
 import Stategy.move;
 import Stategy.negativeDisplacement;
@@ -86,6 +87,7 @@ public abstract class shape implements Ishape{
 		ShapeShadingType shade=prop.getShade();
 		ShapeType shapetype=prop.getType();
 		ShapeColor shapecolor=prop.getColor();
+		
 		shapeProperties prop2=new shapeProperties(a, b, w, h, shade, shapecolor, shapetype);
 		IshapeFactory factory=new CreateShapeFactory();
 		Ishape copy=factory.CreateShape2(prop2,shapetype);
@@ -93,22 +95,22 @@ public abstract class shape implements Ishape{
 	}
 
 	@Override
-	public void delete(Ishape shape, ShapeList shapelist) {
+	public void delete(Ishape shape, repository shaperepository) {
 		// TODO Auto-generated method stub
-		shapelist.RemoveShape(shape);
+		shaperepository.removeshape(shape);
 		
 	}
 
 	@Override
-	public void addtolist(Ishape shape, ShapeList shapelist) {
+	public void addtolist(Ishape shape, repository shaperepository) {
 		// TODO Auto-generated method stub
-		shapelist.AddShape(shape);
+		shaperepository.addshape(shape);
 		
 	}
 
 
 	@Override
-	public void ungroup(Ishape shape, ShapeList shapelist, ArrayList<Ishape> clipboard) {
+	public void ungroup(Ishape shape, repository shaperepository, ArrayList<Ishape> clipboard) {
 		// TODO Auto-generated method stub
 		System.out.println("not a group !!");
 	}
