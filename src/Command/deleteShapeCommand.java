@@ -38,7 +38,7 @@ public class deleteShapeCommand implements Icommand, IUndoable {
 	@Override
 	public void redo() {
 		// TODO Auto-generated method stub
-		for(Ishape shape:selectshaperepository.list()) {
+		for(Ishape shape:clipboard) {
 			
 			//shapelist.RemoveShape(shape);
 			shape.delete(shape, shaperepository);
