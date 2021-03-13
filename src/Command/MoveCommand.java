@@ -33,9 +33,9 @@ public class MoveCommand implements Icommand, IUndoable {
 	public void undo() {
 		// TODO Auto-generated method stub
 		for(Ishape shape:clipboard) {
-			if(selectshaperepository.contains(shape)) {
+			
 				shape.negativedisplacement(dx, dy);
-			}
+			
 			
 		}
 		shaperepository.redraw();
@@ -49,9 +49,9 @@ public class MoveCommand implements Icommand, IUndoable {
 		
 
 		for(Ishape shape:clipboard) {
-			if(selectshaperepository.contains(shape)) {
+			
 				shape.positivedisplacement(dx, dy);
-			}
+			
 			
 		}
 		shaperepository.redraw();
